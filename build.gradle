@@ -1,41 +1,35 @@
-plugins id "net.serenity-bdd.serenity-gradle-plugin" version "3.5.1"
+plugins {
     id 'java'
-    id 'eclipse'
     id 'idea'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '3.7.0'
 }
 
-defaultTasks 'clean','test','aggregate'
+defaultTasks 'clean', 'test', 'aggregate'
 
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 ext {
-    slf4jVersion = '1.7.7'
-    serenityCoreVersion = '3.6.21'
-    junitVersion = '5.8.2'
-    assertJVersion = '3.22.0'
-    logbackVersion = '1.2.10'
+    serenityCoreVersion = '3.8.1'
+    junitVersion = '5.9.3'
+    logbackVersion = '1.4.8'
 }
 
 dependencies {
     testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
-                "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}",
-                "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
-                "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
-                "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
-                "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}",
-                "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
-                "org.assertj:assertj-core:${assertJVersion}",
-                "ch.qos.logback:logback-classic:${logbackVersion}"
+            "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}",
+            "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+            "ch.qos.logback:logback-classic:${logbackVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 
 test {
-    useJUnitPlatform()
+    include "com/eurowings/runners/*.*"
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }
